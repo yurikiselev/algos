@@ -25,7 +25,6 @@ void Prebuild() {
 }
 
 int Max(int i, int j) {
-    //del
     int len = log(1. * j - i + 1) / log(2.);
     if (a[M[i][len]] > a[M[j - (1 << len) + 1][len]]) {
         return a[M[i][len]];
