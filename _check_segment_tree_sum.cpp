@@ -10,29 +10,26 @@ int sum[(MAXN + 1) * 4];
 int add[(MAXN + 1) * 4];
 
 void Update(int v, int tl, int tr, int l, int r, int val) {
-    if (l > r) {
+    if (l > r)
         return;
-    }
-    sum[v] += val * (r - l + 1);
-    if (tl == l && tr == r) {
+    sum[v] += (r - l + 1) * val;
+    if (tl == l && tr == r)
         add[v] += val;
-    } else {
+    else {
         int tm = (tl + tr) / 2;
-        Update(v * 2, tl, tm, l, min(r, tm), val);
-        Update(v * 2 + 1, tm + 1, tr, max(l, tm + 1), r, val);
+        Update(v + v, tl, tm, l, min(r, tm), val);
+        Update(v + v + 1, tm + 1, tr, max(l, tm + 1), r, val);
     }
 }
 
 int Sum(int v, int tl, int tr, int l, int r) {
-    if (l > r) {
+    if (l > r)
         return 0;
-    }
-    if (tl == l && tr == r) {
+    if (tl == l && tr == r)
         return sum[v];
-    }
     int tm = (tl + tr) / 2;
-    return add[v] * (r - l + 1) + Sum(v * 2, tl, tm, l, min(r, tm)) +
-		Sum(v * 2 + 1, tm + 1, tr, max(l, tm + 1), r);
+    return add[v] * (r - l + 1) + Sum(v + v, tl, tm, l, min(r, tm)) +
+        Sum(v + v + 1, tm + 1, tr, max(l, tm + 1), r);
 }
 
 inline int GetId() {
@@ -55,7 +52,7 @@ void Update2(int l, int r, int key) {
 
 int main() {
     for (int i = 1; i <= MAXN; ++i) {
-        a[i] = b[i] = rand();
+        a[i] = b[i] = rand() % MAXN;
     }
     
     for (int i = 1; i <= MAXN; ++i) {
@@ -85,7 +82,7 @@ int main() {
             int sum1 = Sum(1, 1, MAXN, l, r);
             int sum2 = Sum2(l, r);
             if (sum1 != sum2) {
-                cerr << "error!/n";
+                cerr << "error!\n";
                 return 0;
             }
         }
