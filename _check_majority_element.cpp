@@ -1,14 +1,7 @@
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
-#include <cmath>
 using namespace std;
-
-void initfiles() {
-	freopen("in.txt", "r", stdin);
-	freopen("out.txt", "w", stdout);
-}
 
 int FindMajority(const vector<int>& v) { 
      int cnt = 0, majId = 0;
@@ -33,26 +26,25 @@ int FindMajority(const vector<int>& v) {
      return -1;
 }
 
-void Solve() {
-	vector<int> a;
-	a.push_back(10);
-	a.push_back(10);
-	a.push_back(10);
-	a.push_back(20);
-	a.push_back(20);
-	a.push_back(20);
-	a.push_back(20);
-	a.push_back(10);
-	a.push_back(30);
-	a.push_back(10);
-	a.push_back(10);
-
-	cout << FindMajority(a) << endl;
+bool Test() {
+    int n = 10 * 1000 + rand() % 2;
+    vector<int> v;
+    int x = rand();
+    for (int i = 0; i < n / 2 + 1; ++i)
+        v.push_back(x);
+    while (v.size() < n)
+        v.push_back(rand());
+    random_shuffle(v.begin(), v.end());
+    return x = FindMajority(v);
 }
 
 int main()
 {
-	initfiles();
-	Solve();
+    for (int i = 0; i < 10; ++i)
+        if (Test())
+            cerr << "Ok!\n";
+        else
+            cerr << "Error!\n";
+    cerr << "Done!\n";
 	return 0;
 }

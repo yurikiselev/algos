@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include <algorithm>
 using namespace std;
 
@@ -35,19 +36,44 @@ void Insert(TNode *&root, int key) {
 	}
 }
 
-void Wander(TNode *r) {
-	if (r) {
-		Wander(r->left);
-		printf("%d ", r->key);
-		Wander(r->right);
+void InorderWander(TNode *root, vector<int>& res) {
+	if (root) {
+		InorderWander(root->left, res);
+        res.push_back(root->key);
+		InorderWander(root->right, res);
 	}
 }
 
+void Delete(TNode* root) {
+    if (root) {
+        Delete(root->left);
+        Delete(root->right);
+        delete root;
+    }
+}
+
+bool Test() {
+    const int MAXN = 100 * 1000;
+    TNode* root = 0;
+    vector<int> etalon;
+    for (int i = 0; i < MAXN; ++i) {
+        int x = rand();
+        Insert(root, x);
+        etalon.push_back(x);
+    }
+    sort(etalon.begin(), etalon.end());
+    vector<int> res;
+    InorderWander(root, res);
+    Delete(root);
+    return res == etalon;
+}
+
 int main() {
-	TNode *root(0);
-	for (int i = 0; i < 100; ++i) {
-		Insert(root, rand());
-	}
-	Wander(root);
+    for (int i = 0; i < 10; ++i)
+        if (Test())
+            cerr << "Ok!\n";
+        else
+            cerr << "Error!\n";
+    cerr << "Done!\n";
 	return 0;
 }

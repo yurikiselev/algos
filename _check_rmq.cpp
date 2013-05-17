@@ -1,10 +1,9 @@
 #include <iostream>
-#include <algorithm>
 #include <cmath>
 
 using namespace std;
 
-const int MAXN = 40000;
+const int MAXN = 10 * 1000;
 
 int a[MAXN];
 int M[MAXN][20];
@@ -40,7 +39,7 @@ int StupidoMax(int l, int r) {
     return ans;
 }
 
-int main() {
+bool Test() {
     for (int i = 0; i < MAXN; ++i) {
         a[i] = rand() % 1000;
     }
@@ -57,9 +56,18 @@ int main() {
             cerr << "Error - " << i << " step\n";
             cerr << "(x, y) = (" << x << ", " << y << ")\n";
             cerr << "StupidoMax = " << StupidoMax(x, y) << ", Max = " << Max(x, y) << endl;
-            return 0;
+            return false;
         }
     }
-    cerr << "Everything is OK!\n";
+    return true;
+}
+
+int main() {
+    for (int i = 0; i < 10; ++i)
+        if (Test())
+            cerr << "Ok!\n";
+        else
+            cerr << "Error!\n";
+    cerr << "Done!\n";
     return 0;
 }
