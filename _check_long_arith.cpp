@@ -44,12 +44,13 @@ TLong Read(const string& s) {
     return res;
 }
 
-TLong Read(int x) {
+TLong Read(long x) {
     TLong res;
     while (x) {
         res.push_back(x % BASE);
         x /= BASE;
     }
+    Normalize(res);
     return res;
 }
 
@@ -94,10 +95,10 @@ TLong Mul(const TLong& a, const TLong& b) {
     return res;
 }
 
-int main() {
-    for (int i = 0; i < 20; ++i) {
-        int a = rand() % (BASE * BASE * BASE);
-        int b = rand() % (BASE * BASE * BASE);
+bool Test() {
+    for (int i = 0; i < 100 * 1000; ++i) {
+        long long a = rand();
+        long long b = rand();
         if (!Eq(Sum(Read(a), Read(b)), Read(a + b))) {
             cerr << "Error in Sum operator!\n";
             return 0;
@@ -109,13 +110,19 @@ int main() {
             cerr << "Error in Ext operator!\n";
             return 0;
         }
-        a %= 10000;
-        b %= 10000;
         if (!Eq(Mul(Read(a), Read(b)), Read(a * b))) {
             cerr << "Error in Mul operation\n";
             return 0;
         }
     }
-    printf("Everyrhing is OK!\n");
+    return true;
+}
+
+int main() {
+    if (Test())
+        cerr << "Ok!\n";
+    else
+        cerr << "Error!\n";
+    cerr << "Done!\n";
     return 0;
 }
