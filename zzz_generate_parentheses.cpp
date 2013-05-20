@@ -18,6 +18,32 @@ void initfiles() {
 	freopen("out.txt", "w", stdout);
 }
 
+class Solution {
+public:
+    vector<string> res;
+
+	void Generate(int remLeft, int remRight, string& s, int cnt) {
+		if (remLeft == 0 && remRight == 0) {
+			res.push_back(s);
+			return;
+		}
+		if (remLeft) {
+			s[cnt] = '(';
+			Generate(remLeft - 1, remRight, s, cnt + 1);
+		}
+		if (remRight > remLeft) {
+			s[cnt] = ')';
+			Generate(remLeft, remRight - 1, s, cnt + 1);
+		}
+	}
+    vector<string> generateParenthesis(int n) {
+		res.clear();
+		string tmp(2 * n, '.');
+		Generate(n, n, tmp, 0);
+		return res;
+    }
+};
+
 void generate(int len) {
 	string s = string(len, '(') + string(len, ')');
 	int n = (int)s.size();
