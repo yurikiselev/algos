@@ -5,7 +5,7 @@
 
 using namespace std;
 
-const int MAXN = 100;
+const int MAXN = 2000;
 
 struct TEdge {
     int to;
@@ -154,53 +154,25 @@ void Generate() {
     }
 }
 
+bool Test() {
+    Clean();
+    Generate();
+    int maxMatch = MaxMatch();
+    int maxFlow = MaxFlow();
+    cerr << "\t" << maxMatch << ' ' << maxFlow << endl;
+    return maxMatch == maxFlow;
+}
+
+void ManualTest() {
+}
+
 int main() {
-/*
-Input:
-10 7
-2 3
-2 8
-5 4
-5 6
-6 7
-9 8
-8 10
-
-Output:
-1 0
-2 3
-3 2
-4 5
-5 4
-6 7
-7 6
-// дальше опционально
-8 9
-9 8
-10 0
-    scanf("%d%d", &n, &m);
-    for (int i = 0; i < m; ++i) {
-        int x, y;
-        scanf("%d%d", &x, &y);
-        --x;
-        --y;
-        g[x].push_back(y);
-        g[y].push_back(x);
-    }
-*/
-
-    for (int i = 0; i < 10; ++i) {
-        Clean();
-        Generate();
-        int maxMatch = MaxMatch();
-        int maxFlow = MaxFlow();
-        if (maxMatch != maxFlow) {
-            cerr << "We are in trouble!\n";
-            cerr << "\tMaxMatch = " << maxMatch << ", MaxFlow = " << maxFlow << endl;
-        } else {
-            cerr << "Everything is OK!\n";
-        }
-    }
-
+    for (int i = 0; i < 10; ++i)
+        if (Test())
+            cerr << "Ok!\n";
+        else
+            cerr << "Error!\n";
+    cerr << "Done\n";
     return 0;
 }
+

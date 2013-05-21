@@ -32,10 +32,9 @@ private:
 			return false;
 		if (pos == s.size())
 			return root->isTerm;
-		TNode* next = root->ch[s[pos] - 'a'];
-		if (next == 0)
-			return false;
-		return Has(next, s, pos + 1);
+        if (TNode* next = root->ch[s[pos] - 'a'])
+            return Has(next, s, pos + 1);
+        return false;
 	}
 	void Insert(TNode* root, const string& s, int pos) {
 		if (pos == s.size())
