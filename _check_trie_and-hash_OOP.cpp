@@ -91,7 +91,7 @@ public:
 			pow[i] = pow[i - 1] * PRIME;
 		ULL h = 0;
 		for (int i = 0; i < s.size(); ++i) {
-			h = h * PRIME + (s[i] - 'a' + 1);
+			h = h * PRIME + (s[i] - 'a') + 1; // don't forget '+1'!
 			hash[i] = h;
 		}
 	}
