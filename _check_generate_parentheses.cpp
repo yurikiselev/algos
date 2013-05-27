@@ -2,21 +2,10 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include <set>
-#include <list>
-#include <map>
 #include <algorithm>
 #include <cmath>
-#include <deque>
-#include <queue>
-#include <stack>
-#include <limits>
-using namespace std;
 
-void initfiles() {
-	freopen("in.txt", "r", stdin);
-	freopen("out.txt", "w", stdout);
-}
+using namespace std;
 
 class Solution {
 public:
@@ -44,11 +33,11 @@ public:
     }
 };
 
-void generate(int len) {
+void generate(int len, vector<string>& res) {
 	string s = string(len, '(') + string(len, ')');
 	int n = (int)s.size();
 	while (1) {
-		cout << s << endl;
+        res.push_back(s);
 		bool next = false;
 		string res;
 		for (int i = n - 1, depth = 0; i >= 0; --i) {
@@ -72,13 +61,22 @@ void generate(int len) {
 	}
 }
 
-void Solve() {
-	generate(3);
+bool Test(int n) {
+    Solution sol;
+    sol.generateParenthesis(n);
+    vector<string> v;
+    generate(n, v);
+    cerr << "\t" << v.size() << ' ' << sol.res.size() << endl;
+    return v == sol.res;
 }
 
 int main()
 {
-	initfiles();
-	Solve();
+    for (int i = 0; i < 10; ++i)
+        if (Test(i))
+            cerr << "Ok!\n";
+        else
+            cerr << "Error!\n";
+    cerr << "Done!\n";
 	return 0;
 }
